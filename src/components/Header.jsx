@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const navItems = [
   { href: '#hero', label: 'Home' },
@@ -13,6 +13,27 @@ const Header = () => {
   const [theme, setTheme] = useState('dark')
   const [readingGuideActive, setReadingGuideActive] = useState(false)
   const [readingGuideHeight, setReadingGuideHeight] = useState(36)
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      const scrollingDown = currentScrollY > lastScrollY
+      
+      if (scrollingDown && currentScrollY > 100) {
+        setIsScrolled(true) // Hide header when scrolling down
+      } else if (!scrollingDown) {
+        setIsScrolled(false) // Show header when scrolling up
+      }
+      
+      lastScrollY = currentScrollY
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const handleFontSize = (size) => {
     setFontSize(size)
@@ -90,7 +111,7 @@ const Header = () => {
   }
 
   return (
-    <header className="header" aria-label="Site header">
+    <header className={`header ${isScrolled ? 'scrolled' : ''}`} aria-label="Site header">
       <div className="header-content">
         <a href="#hero" className="header-logo">Visual<span>Aid</span></a>
 
