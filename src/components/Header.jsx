@@ -11,8 +11,6 @@ const navItems = [
 const Header = () => {
   const [fontSize, setFontSize] = useState(16)
   const [theme, setTheme] = useState('dark')
-  const [readingGuideActive, setReadingGuideActive] = useState(false)
-  const [readingGuideHeight, setReadingGuideHeight] = useState(36)
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -90,26 +88,6 @@ const Header = () => {
     }
   }
 
-  const toggleReadingGuide = () => {
-    setReadingGuideActive(!readingGuideActive)
-    const guide = document.getElementById('reading-guide')
-    if (!readingGuideActive) {
-      guide.classList.add('active')
-      document.addEventListener('mousemove', (e) => {
-        guide.style.top = e.clientY + 'px'
-      })
-    } else {
-      guide.classList.remove('active')
-      document.removeEventListener('mousemove', () => {})
-    }
-  }
-
-  const handleReadingGuideHeight = (e) => {
-    const height = e.target.value
-    setReadingGuideHeight(height)
-    document.documentElement.style.setProperty('--rg-height', height + 'px')
-  }
-
   return (
     <header className={`header ${isScrolled ? 'scrolled' : ''}`} aria-label="Site header">
       <div className="header-content">
@@ -144,14 +122,6 @@ const Header = () => {
             <button className={`tb-btn ${theme === 'hc' ? 'active' : ''}`} onClick={() => handleTheme('hc')} aria-pressed={theme === 'hc'} aria-label="High contrast theme">High Contrast</button>
           </div>
 
-          <div className="tb-group">
-            <span className="tb-label">Tools</span>
-            <button className={`tb-btn ${readingGuideActive ? 'active' : ''}`} id="rg-btn" onClick={toggleReadingGuide} aria-pressed={readingGuideActive} aria-label="Toggle reading guide">Reading Guide</button>
-            <div className="dial-group" title="Adjust reading guide height">
-              <input type="range" id="rg-dial" className="dial-input" min="15" max="80" value={readingGuideHeight} onChange={handleReadingGuideHeight} aria-label={`Reading guide height: ${readingGuideHeight} pixels`} />
-              <span className="dial-label" id="rg-label">{readingGuideHeight}px</span>
-            </div>
-          </div>
         </div>
       </div>
     </header>

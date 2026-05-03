@@ -20,7 +20,6 @@
   --font-size: 16px;
   --radius: 14px;
   --shadow: 0 8px 40px rgba(0,0,0,0.5);
-  --rg-height: 36px;
 }
 
 .hc {
@@ -62,24 +61,6 @@ body::before {
   z-index: 0;
 }
 
-/* ===== READING GUIDE ===== */
-#reading-guide {
-  display: none;
-  position: fixed;
-  left: 0;
-  right: 0;
-  height: var(--rg-height);
-  background: rgba(200,169,110,0.12);
-  border-top: 2px solid var(--accent);
-  border-bottom: 2px solid var(--accent);
-  pointer-events: none;
-  z-index: 9999;
-  transform: translateY(-50%);
-}
-
-#reading-guide.active {
-  display: block;
-}
 
 /* ===== SKIP LINK ===== */
 .skip-link {
