@@ -3,7 +3,7 @@ const Hero = () => {
     <div className="container">
       <div className="hero-grid">
         <div className="hero-content">
-          <div className="hero-badge">Visual Impairment Awareness Project</div>
+
           <h1 className="hero-title" id="hero-title">
             <span className="line1">See the World</span>
             <span className="line2">Through Different</span>
