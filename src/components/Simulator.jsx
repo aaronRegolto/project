@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { applyColorFilter } from '../utils/colorFilters'
+import { applyColorFilter, applyFilterToHexColor } from '../utils/colorFilters'
 
 const Simulator = () => {
   const [currentSimType, setCurrentSimType] = useState('normal')
@@ -292,7 +292,7 @@ const Simulator = () => {
               <div className="sim-panel-title">{simulationTypes.find(t => t.id === currentSimType).name}</div>
               <div className={`color-swatches filter-${currentSimType}`} id="swatches-sim">
                 {colorPalette.map((swatch) => (
-                  <div key={swatch.label} className="swatch" style={{ background: swatch.color }} data-label={swatch.label}></div>
+                  <div key={swatch.label} className="swatch" style={{ background: applyFilterToHexColor(swatch.color, currentSimType) }} data-label={swatch.label}></div>
                 ))}
               </div>
               <div className={`sim-scene filter-${currentSimType}`} id="sim-scene-filter">

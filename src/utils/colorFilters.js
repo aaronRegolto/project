@@ -66,3 +66,33 @@ export const applyColorFilter = (imageData, filterType) => {
 
   return imageData;
 };
+
+/**
+ * Convert hex color to RGB and apply color filter
+ * @param {string} hexColor - Hex color string (e.g., '#e85d6b')
+ * @param {string} filterType - Type of filter to apply
+ * @returns {string} Filtered hex color string
+ */
+export const applyFilterToHexColor = (hexColor, filterType) => {
+  if (filterType === 'normal') return hexColor;
+
+  const filter = colorFilters[filterType];
+  if (!filter) return hexColor;
+
+  // Convert hex to RGB
+  const hex = hexColor.replace('#', '');
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+
+  // Apply filter
+  const filtered = filter(r, g, b);
+
+  // Convert back to hex
+  const toHex = (value) => {
+    const clamped = Math.max(0, Math.min(255, Math.round(value)));
+    return clamped.toString(16).padStart(2, '0');
+  };
+
+  return `#${toHex(filtered.r)}${toHex(filtered.g)}${toHex(filtered.b)}`;
+};
