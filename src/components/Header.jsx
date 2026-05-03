@@ -11,6 +11,7 @@ const navItems = [
 const Header = () => {
   const [fontSize, setFontSize] = useState(16)
   const [theme, setTheme] = useState('dark')
+  const [toolsOpen, setToolsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -36,6 +37,10 @@ const Header = () => {
   const handleFontSize = (size) => {
     setFontSize(size)
     document.documentElement.style.setProperty('--font-size', size + 'px')
+  }
+
+  const toggleTools = () => {
+    setToolsOpen((open) => !open)
   }
 
   const handleTheme = (newTheme) => {
@@ -89,42 +94,50 @@ const Header = () => {
   }
 
   return (
-    <header className={`header ${isScrolled ? 'scrolled' : ''}`} aria-label="Site header">
-      <div className="header-content">
-        <a href="#hero" className="header-logo">Visual<span>Aid</span></a>
+    <>
+      <header className={`header ${isScrolled ? 'scrolled' : ''}`} aria-label="Site header">
+        <div className="header-content">
+          <a href="#hero" className="header-logo">Visual<span>Aid</span></a>
 
-        <nav id="main-nav" className="header-nav" aria-label="Main navigation">
-          <div className="nav-links">
-            {navItems.map((item) => (
-              <a key={item.href} className="nav-link" href={item.href} onClick={(e) => {
-                e.preventDefault()
-                document.querySelector(item.href).scrollIntoView({ behavior: 'smooth' })
-              }}>
-                {item.label}
-              </a>
-            ))}
-          </div>
-        </nav>
-
-        <div className="header-toolbar" role="banner" aria-label="Accessibility controls">
-          <div className="tb-group" role="group" aria-label="Text size">
-            <span className="tb-label">Text</span>
-            <button className={`tb-btn ${fontSize === 13 ? 'active' : ''}`} onClick={() => handleFontSize(13)} aria-label="Small text">A-</button>
-            <button className={`tb-btn ${fontSize === 16 ? 'active' : ''}`} onClick={() => handleFontSize(16)} aria-label="Normal text">A</button>
-            <button className={`tb-btn ${fontSize === 19 ? 'active' : ''}`} onClick={() => handleFontSize(19)} aria-label="Large text">A+</button>
-            <button className={`tb-btn ${fontSize === 23 ? 'active' : ''}`} onClick={() => handleFontSize(23)} aria-label="Extra large text">A++</button>
-          </div>
-
-          <div className="tb-group" role="group" aria-label="Color theme">
-            <span className="tb-label">Theme</span>
-            <button className={`tb-btn ${theme === 'dark' ? 'active' : ''}`} onClick={() => handleTheme('dark')} aria-pressed={theme === 'dark'} aria-label="Dark theme">Dark</button>
-            <button className={`tb-btn ${theme === 'light' ? 'active' : ''}`} onClick={() => handleTheme('light')} aria-pressed={theme === 'light'} aria-label="Light theme">Light</button>
-            <button className={`tb-btn ${theme === 'hc' ? 'active' : ''}`} onClick={() => handleTheme('hc')} aria-pressed={theme === 'hc'} aria-label="High contrast theme">High Contrast</button>
-          </div>
+          <nav id="main-nav" className="header-nav" aria-label="Main navigation">
+            <div className="nav-links">
+              {navItems.map((item) => (
+                <a key={item.href} className="nav-link" href={item.href} onClick={(e) => {
+                  e.preventDefault()
+                  document.querySelector(item.href).scrollIntoView({ behavior: 'smooth' })
+                }}>
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </nav>
 
         </div>
+      </header>
+
+      <div className={`tools-bubble ${toolsOpen ? 'open' : ''}`} aria-label="Accessibility tools">
+      <button type="button" className="tools-bubble-toggle" onClick={toggleTools} aria-expanded={toolsOpen} aria-label="Open accessibility tools">
+        <span>{toolsOpen ? 'Close' : 'Tools'}</span>
+      </button>
+
+      <div className="tools-bubble-panel" aria-hidden={!toolsOpen}>
+        <div className="tb-group" role="group" aria-label="Text size">
+          <span className="tb-label">Text</span>
+          <button className={`tb-btn ${fontSize === 13 ? 'active' : ''}`} onClick={() => handleFontSize(13)} aria-label="Small text">A-</button>
+          <button className={`tb-btn ${fontSize === 16 ? 'active' : ''}`} onClick={() => handleFontSize(16)} aria-label="Normal text">A</button>
+          <button className={`tb-btn ${fontSize === 19 ? 'active' : ''}`} onClick={() => handleFontSize(19)} aria-label="Large text">A+</button>
+          <button className={`tb-btn ${fontSize === 23 ? 'active' : ''}`} onClick={() => handleFontSize(23)} aria-label="Extra large text">A++</button>
+        </div>
+
+        <div className="tb-group" role="group" aria-label="Color theme">
+          <span className="tb-label">Theme</span>
+          <button className={`tb-btn ${theme === 'dark' ? 'active' : ''}`} onClick={() => handleTheme('dark')} aria-pressed={theme === 'dark'} aria-label="Dark theme">Dark</button>
+          <button className={`tb-btn ${theme === 'light' ? 'active' : ''}`} onClick={() => handleTheme('light')} aria-pressed={theme === 'light'} aria-label="Light theme">Light</button>
+          <button className={`tb-btn ${theme === 'hc' ? 'active' : ''}`} onClick={() => handleTheme('hc')} aria-pressed={theme === 'hc'} aria-label="High contrast theme">High Contrast</button>
+        </div>
       </div>
-    </header>
+    </div>
+    </>
   )
 }
 
