@@ -1491,44 +1491,52 @@ section:nth-child(even) {
 
   .header-content {
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.6rem;
     align-items: stretch;
-    padding: 0.6rem 1rem;
+    padding: 0.5rem 0.9rem;
+  }
+
+  .header-logo {
+    font-size: 1.25rem;
   }
 
   .header-nav {
     width: 100%;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
+    padding: 0.2rem 0;
   }
 
   .nav-links {
-    gap: 0.5rem;
+    gap: 0.4rem;
     justify-content: center;
     flex-wrap: wrap;
   }
 
   .nav-link {
-    padding: 0.55rem 0.85rem;
+    padding: 0.45rem 0.7rem;
     font-size: 0.78rem;
+    white-space: nowrap;
   }
 
   .header-toolbar {
     width: 100%;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 0.6rem;
+    gap: 0.5rem;
   }
 
   .tb-group {
-    width: auto;
+    flex: 1 1 45%;
+    min-width: 140px;
     justify-content: center;
-    padding: 0.4rem 0.6rem;
+    padding: 0.35rem 0.55rem;
   }
 
   .dial-group {
     width: 100%;
     justify-content: center;
+    padding: 0.35rem 0.55rem;
   }
 
   .dial-input {
@@ -1537,11 +1545,12 @@ section:nth-child(even) {
   }
 
   .tb-btn {
-    padding: 0.4rem 0.65rem;
+    padding: 0.35rem 0.6rem;
     font-size: 0.78rem;
   }
 
-  .hero-content {
+  .hero-content,
+  .hero-grid {
     grid-template-columns: 1fr;
     text-align: center;
     gap: 2rem;
@@ -1549,26 +1558,6 @@ section:nth-child(even) {
 
   .hero-actions {
     justify-content: center;
-  }
-
-  .hero-grid {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .hero-content {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 2rem;
-  }
-
-  .hero-actions {
-    justify-content: center;
-  }
-
-  .hero-grid {
-    grid-template-columns: 1fr;
-    text-align: center;
   }
 
   .hero-visual {
@@ -1577,14 +1566,6 @@ section:nth-child(even) {
 
   .hero-desc {
     margin: 0 auto 2rem;
-  }
-
-  .tb-group {
-    justify-content: center;
-  }
-
-  .dial-group {
-    width: 100%;
   }
 
   .sim-layout {
@@ -1613,6 +1594,71 @@ section:nth-child(even) {
 
   .answer-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  main {
+    padding-top: 190px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .types-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .test-intro-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .voice-actions {
+    flex-direction: column;
+  }
+
+  .quick-phrases {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .answer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .header-logo {
+    font-size: 1.2rem;
+  }
+
+  .nav-link {
+    padding: 0.35rem 0.55rem;
+    font-size: 0.72rem;
+  }
+
+  .tb-group {
+    flex: 1 1 100%;
+    min-width: auto;
+    justify-content: center;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .dial-group {
+    width: 100%;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .dial-input {
+    max-width: 120px;
+  }
+
+  main {
+    padding-top: 220px;
   }
 }
 
