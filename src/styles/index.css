@@ -1742,6 +1742,53 @@ section:nth-child(even) {
   }
 }
 
+@media (max-width: 768px) {
+  .voice-card {
+    padding: 1.8rem;
+  }
+
+  .voice-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .voice-wave {
+    margin-left: 0;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .voice-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .voice-textarea {
+    min-height: 140px;
+  }
+
+  .voice-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .voice-actions .btn,
+  .voice-actions .voice-speak-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .quick-phrases {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .quick-phrases .phrase-btn,
+  .phrase-manage-btn {
+    width: 100%;
+  }
+}
+
 @media (max-width: 480px) {
   .section-title {
     font-size: 2rem;

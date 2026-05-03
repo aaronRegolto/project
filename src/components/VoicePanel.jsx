@@ -15,6 +15,15 @@ const VoicePanel = () => {
   const [newPhrase, setNewPhrase] = useState('')
   const [recognition, setRecognition] = useState(null)
 
+  const PREFERRED_VOICE_NAMES = [
+    'Google US English',
+    'Microsoft Zira Desktop - English (United States)',
+    'Google UK English Male',
+    'Google UK English Female',
+    'Alex',
+    'Samantha'
+  ]
+
   const DEFAULT_PHRASES = [
     'I am deaf. Please read this message.',
     'Could you please help me?',
@@ -31,12 +40,25 @@ const VoicePanel = () => {
     }
     loadCustomPhrases()
 
-    const populateVoices = () => {
-      const synthVoices = speechSynthesis.getVoices()
-      setVoices(synthVoices)
-      if (synthVoices.length > 0 && !selectedVoice) {
-        setSelectedVoice(synthVoices[0].name)
+    const filterVoices = (voiceList) => {
+      const preferred = voiceList.filter((voice) =>
+        PREFERRED_VOICE_NAMES.some((name) => voice.name.includes(name))
+      )
+      if (preferred.length >= 2) return preferred.slice(0, 2)
+      if (preferred.length === 1) {
+        return [preferred[0], ...voiceList.filter((voice) => voice.name !== preferred[0].name).slice(0, 1)]
       }
+      return voiceList.slice(0, 2)
+    }
+
+    const populateVoices = () => {
+      const synthVoices = speechSynthesis.getVoices() || []
+      const selectedList = filterVoices(synthVoices)
+      setVoices(selectedList)
+      setSelectedVoice((prev) => {
+        if (prev && selectedList.some((voice) => voice.name === prev)) return prev
+        return selectedList[0]?.name || ''
+      })
     }
     populateVoices()
     if (speechSynthesis.onvoiceschanged !== undefined) {
@@ -231,19 +253,23 @@ const VoicePanel = () => {
         <div className="voice-controls">
           <div className="voice-control-group">
             <label htmlFor="voice-select">Voice</label>
-            <select
-              className="voice-select"
-              id="voice-select"
-              value={selectedVoice}
-              onChange={(e) => setSelectedVoice(e.target.value)}
-              aria-label="Select voice"
-            >
-              {voices.map((voice, i) => (
-                <option key={i} value={voice.name}>
-                  {voice.name} ({voice.lang})
-                </option>
-              ))}
-            </select>
+            {voices.length > 0 ? (
+              <select
+                className="voice-select"
+                id="voice-select"
+                value={selectedVoice}
+                onChange={(e) => setSelectedVoice(e.target.value)}
+                aria-label="Select voice"
+              >
+                {voices.map((voice, i) => (
+                  <option key={i} value={voice.name}>
+                    {voice.name} ({voice.lang})
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <div className="voice-select fallback">Loading voice options...</div>
+            )}
           </div>
           <div className="voice-control-group">
             <label htmlFor="voice-speed">Speed: <span id="speed-val">{speechRate.toFixed(1)}</span>x</label>
