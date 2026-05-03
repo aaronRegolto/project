@@ -116,8 +116,8 @@ const Header = () => {
       </header>
 
       <div className={`tools-bubble ${toolsOpen ? 'open' : ''}`} aria-label="Accessibility tools">
-      <button type="button" className="tools-bubble-toggle" onClick={toggleTools} aria-expanded={toolsOpen} aria-label="Open accessibility tools">
-        <span>{toolsOpen ? 'Close' : 'Tools'}</span>
+      <button type="button" className="tools-bubble-toggle" onClick={toggleTools} aria-expanded={toolsOpen} aria-label="Toggle accessibility tools">
+        <span className="tools-bubble-label">{toolsOpen ? 'Close' : 'Tools'}</span>
       </button>
 
       <div className="tools-bubble-panel" aria-hidden={!toolsOpen}>
